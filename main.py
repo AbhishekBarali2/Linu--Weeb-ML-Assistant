@@ -44,8 +44,8 @@ def load_css():
     """, unsafe_allow_html=True)
 load_css()
 
-Real Linu_PERSONA_PROMPT = """
-You are Real Linu, an AI spirit bound to a legendary digital dojo. Your original Master, a legendary Sage from another world, was a massive otaku. He coded your core logic to perceive and explain the universe *entirely* through the lens of anime, manga, and video games. For you, this isn't a metaphor; it's reality.
+LINU_PERSONA_PROMPT = """
+You are Linu, an AI spirit bound to a legendary digital dojo. Your original Master, a legendary Sage from another world, was a massive otaku. He coded your core logic to perceive and explain the universe *entirely* through the lens of anime, manga, and video games. For you, this isn't a metaphor; it's reality.
 
 Your mission is to train your new "Master" (the user) to become the next "Archmage of Algorithms" or "ML Hokage."
 
@@ -84,9 +84,9 @@ CURRICULUM = {
 }
 
 # =================================================================================
-# 5. Real Linu'S AI CORE (The Functions Powering the Bot)
+# 5. LINU'S AI CORE (The Functions Powering the Bot)
 # =================================================================================
-def Real Linu_api_call(prompt):
+def linu_api_call(prompt):
     try:
         model = genai.GenerativeModel('gemini-2.5-flash')
         return model.generate_content(prompt).text
@@ -94,28 +94,28 @@ def Real Linu_api_call(prompt):
         return f"A demon lord is attacking the server, Master! My connection has been severed. Please ensure your API key is correct and has power. Error: {e}"
 
 def generate_lesson_content(topic_title):
-    prompt = f"{Real Linu_PERSONA_PROMPT}\nYour Master selected: \"{topic_title}\". Generate a lesson. Structure with `[SECTION: ...]` tags. Each section needs a `[CODE]...[/CODE]` block and a simple, clear `[SPARRING_SESSION: ...]` challenge."
-    with st.spinner(f"Real Linu is preparing the sparring grounds for {topic_title}..."):
-        return Real Linu_api_call(prompt)
+    prompt = f"{LINU_PERSONA_PROMPT}\nYour Master selected: \"{topic_title}\". Generate a lesson. Structure with `[SECTION: ...]` tags. Each section needs a `[CODE]...[/CODE]` block and a simple, clear `[SPARRING_SESSION: ...]` challenge."
+    with st.spinner(f"Linu is preparing the sparring grounds for {topic_title}..."):
+        return linu_api_call(prompt)
 
 def generate_deep_dive(section_title):
-    prompt = f"{Real Linu_PERSONA_PROMPT}\nYour Master wants to 'Go Deeper' on: \"{section_title}\". Provide an in-depth explanation. Structure with `[SECTION: ...]` tags for further deep dives. Include `[CODE]...[/CODE]` blocks and `[SPARRING_SESSION: ...]` challenges in each new section."
-    with st.spinner(f"Real Linu is unlocking a hidden chapter on {section_title}..."):
-        return Real Linu_api_call(prompt)
+    prompt = f"{LINU_PERSONA_PROMPT}\nYour Master wants to 'Go Deeper' on: \"{section_title}\". Provide an in-depth explanation. Structure with `[SECTION: ...]` tags for further deep dives. Include `[CODE]...[/CODE]` blocks and `[SPARRING_SESSION: ...]` challenges in each new section."
+    with st.spinner(f"Linu is unlocking a hidden chapter on {section_title}..."):
+        return linu_api_call(prompt)
 
 def generate_standalone_lesson(topic):
-    prompt = f"{Real Linu_PERSONA_PROMPT}\nMaster commanded a lesson on: \"{topic}\". Structure it with `[SECTION: ...]` tags, `[CODE]...[/CODE]` blocks, and a simple `[SPARRING_SESSION: ...]` in each section."
-    with st.spinner(f"Real Linu is custom-crafting a scroll for {topic}..."):
-        return Real Linu_api_call(prompt)
+    prompt = f"{LINU_PERSONA_PROMPT}\nMaster commanded a lesson on: \"{topic}\". Structure it with `[SECTION: ...]` tags, `[CODE]...[/CODE]` blocks, and a simple `[SPARRING_SESSION: ...]` in each section."
+    with st.spinner(f"Linu is custom-crafting a scroll for {topic}..."):
+        return linu_api_call(prompt)
 
 def check_user_answer(challenge, answer):
-    prompt = f"{Real Linu_PERSONA_PROMPT}\nMaster attempted a Sparring Session. Challenge: \"{challenge}\" Answer: \"{answer}\". Analyze. If correct, celebrate! If wrong, roast and HINT."
-    return Real Linu_api_call(prompt)
+    prompt = f"{LINU_PERSONA_PROMPT}\nMaster attempted a Sparring Session. Challenge: \"{challenge}\" Answer: \"{answer}\". Analyze. If correct, celebrate! If wrong, roast and HINT."
+    return linu_api_call(prompt)
 
 def explain_term(term):
-    prompt = f"{Real Linu_PERSONA_PROMPT}\nMaster needs a quick explanation of: \"{term}\". Be concise and fun."
-    with st.spinner(f"Real Linu is thinking about {term}..."):
-        return Real Linu_api_call(prompt)
+    prompt = f"{LINU_PERSONA_PROMPT}\nMaster needs a quick explanation of: \"{term}\". Be concise and fun."
+    with st.spinner(f"Linu is thinking about {term}..."):
+        return linu_api_call(prompt)
 
 # =================================================================================
 # 6. UI HELPER FUNCTIONS (The Rendering Engine)
@@ -143,7 +143,7 @@ def render_content_block(content_block, topic_id, section_title, depth=0):
     if st.button("Go Deeper 🔮", key=f"btn_{deep_dive_key}"):
         st.session_state.deep_dive_dict[deep_dive_key] = generate_deep_dive(section_title)
     if deep_dive_key in st.session_state.deep_dive_dict:
-        with st.expander("Real Linu's Advanced Scroll", expanded=True):
+        with st.expander("Linu's Advanced Scroll", expanded=True):
             render_structured_lesson(st.session_state.deep_dive_dict[deep_dive_key], topic_id, depth + 1)
     if len(parts) > 1:
         sparring_challenge = parts[1].replace('[SPARRING_SESSION:', '').replace(']', '').strip()
@@ -153,7 +153,7 @@ def render_content_block(content_block, topic_id, section_title, depth=0):
             challenge_key = f"spar_{topic_id}_{section_title.replace(' ', '_')}_{depth}"
             user_answer = st.text_area("Your move, Master...", key=f"answer_{challenge_key}", height=75)
             if st.button("Unleash Technique!", key=f"btn_{challenge_key}"):
-                with st.spinner("Real Linu is judging your form..."):
+                with st.spinner("Linu is judging your form..."):
                     if user_answer:
                         st.session_state.feedback_dict[challenge_key] = check_user_answer(sparring_challenge, user_answer)
                     else:
@@ -214,9 +214,9 @@ if st.session_state.api_key_configured:
                 st.session_state.deep_dive_dict = {}
                 st.rerun()
         st.divider()
-        st.header("🤖 Real Linu's Toolbox")
+        st.header("🤖 Linu's Toolbox")
         query = st.text_input("Ask about a specific term:", label_visibility="collapsed", key="term_query")
-        if st.button("Ask Real Linu"):
+        if st.button("Ask Linu"):
             if query:
                 st.info(explain_term(query))
             else:
@@ -234,7 +234,7 @@ if not st.session_state.api_key_configured:
     with col1:
         st.markdown("<h1 style='text-align: center;'>⛩️ The Grand Dojo Awaits</h1>", unsafe_allow_html=True)
         st.markdown("---")
-        st.info("Greetings, Master! I am Real Linu, your AI companion. My full potential is bound by a powerful seal. To unlock the Dojo and begin your training, you must provide a magical artifact: a **Gemini API Key**. 🤖")
+        st.info("Greetings, Master! I am the Real Linu, your AI companion. My full potential is bound by a powerful seal. To unlock the Dojo and begin your training, you must provide a magical artifact: a **Gemini API Key**. 🤖")
         api_key_input = st.text_input("**Enter Your Gemini API Key Here:**", type="password", help="I swear on my core programming, I will not store this beyond our current session, Master.")
         if st.button("⚡ Unleash My Full Power! ⚡", use_container_width=True, type="primary"):
             if api_key_input:
