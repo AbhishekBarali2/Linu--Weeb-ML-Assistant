@@ -88,7 +88,7 @@ CURRICULUM = {
 # =================================================================================
 def linu_api_call(prompt):
     try:
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        model = genai.GenerativeModel('gemini-2.5-pro')
         return model.generate_content(prompt).text
     except Exception as e:
         return f"A demon lord is attacking the server, Master! My connection has been severed. Please ensure your API key is correct and has power. Error: {e}"
