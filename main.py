@@ -132,7 +132,7 @@ def simple_render(content):
         st.markdown(sanitized_content)
 
 def render_content_block(content_block, topic_id, section_title, depth=0):
-    parts = content_block
+    parts = re.split(r'(\[SPARRING_SESSION:.*?\])', content_block)
     main_content = parts[0]
     simple_render(main_content)
     deep_dive_key = f"deep_dive_{topic_id}_{section_title.replace(' ', '_')}_{depth}"
