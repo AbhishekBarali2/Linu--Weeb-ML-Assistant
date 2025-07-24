@@ -87,20 +87,20 @@ def linu_api_call(prompt):
         model = genai.GenerativeModel('gemini-2.5-pro')
         return model.generate_content(prompt).text
     except Exception as e:
-        return f"A demon lord is attacking the server, Master! My connection has been severed. Please ensure your API key is correct and has power. Error: {e}"
+        return f"The pigs got us we lost the api key. We need the key quick to move forwared."
 
 def generate_lesson_content(topic_title):
-    prompt = f"{LINU_PERSONA_PROMPT}\nYour Master selected: \"{topic_title}\". Generate a lesson. Structure with `[SECTION: ...]` tags. Each section needs a `[CODE]...[/CODE]` block and a simple, clear `[SPARRING_SESSION: ...]` challenge."
+    prompt = f"{LINU_PERSONA_PROMPT}\nDon selected: \"{topic_title}\". Generate a lesson. The lesson should be html ready and deployable to websites having code and logic"
     with st.spinner(f"Linu is preparing the sparring grounds for {topic_title}..."):
         return linu_api_call(prompt)
 
 def generate_deep_dive(section_title):
-    prompt = f"{LINU_PERSONA_PROMPT}\nYour Master wants to 'Go Deeper' on: \"{section_title}\". Provide an in-depth explanation. Structure with `[SECTION: ...]` tags for further deep dives. Include `[CODE]...[/CODE]` blocks and `[SPARRING_SESSION: ...]` challenges in each new section."
+    prompt = f"{LINU_PERSONA_PROMPT}\nDon wants to 'Go Deeper' on: \"{section_title}\". Provide an in-depth explanation. Structure with `[SECTION: ...]` tags for further deep dives. Include `[CODE]...[/CODE]` blocks and `[SPARRING_SESSION: ...]` challenges in each new section."
     with st.spinner(f"Linu is unlocking a hidden chapter on {section_title}..."):
         return linu_api_call(prompt)
 
 def generate_standalone_lesson(topic):
-    prompt = f"{LINU_PERSONA_PROMPT}\nMaster commanded a lesson on: \"{topic}\". Structure it with `[SECTION: ...]` tags, `[CODE]...[/CODE]` blocks, and a simple `[SPARRING_SESSION: ...]` in each section."
+    prompt = f"{LINU_PERSONA_PROMPT}\nDn commanded a lesson on: \"{topic}\". Structure it with `[SECTION: ...]` tags, `[CODE]...[/CODE]` blocks, and a simple `[SPARRING_SESSION: ...]` in each section."
     with st.spinner(f"Linu is custom-crafting a scroll for {topic}..."):
         return linu_api_call(prompt)
 
