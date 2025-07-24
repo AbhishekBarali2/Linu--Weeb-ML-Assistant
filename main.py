@@ -90,7 +90,7 @@ def linu_api_call(prompt):
         return f"The pigs got us we lost the api key. We need the key quick to move forwared."
 
 def generate_lesson_content(topic_title):
-    prompt = f"{LINU_PERSONA_PROMPT}\nDon selected: \"{topic_title}\". Generate a lesson. The lesson should be html ready and deployable to websites having code and logic"
+    prompt = f"{LINU_PERSONA_PROMPT}\nDon selected: \"{topic_title}\". Generate a lesson. The lesson should be html ready and be able to be added to existing projects it should have code and logic"
     with st.spinner(f"Linu is preparing the sparring grounds for {topic_title}..."):
         return linu_api_call(prompt)
 
@@ -132,7 +132,7 @@ def simple_render(content):
         st.markdown(sanitized_content)
 
 def render_content_block(content_block, topic_id, section_title, depth=0):
-    parts = re.split(r'(\[SPARRING_SESSION:.*?\])', content_block)
+    parts = content_block
     main_content = parts[0]
     simple_render(main_content)
     deep_dive_key = f"deep_dive_{topic_id}_{section_title.replace(' ', '_')}_{depth}"
